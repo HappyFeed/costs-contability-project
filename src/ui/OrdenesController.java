@@ -160,6 +160,7 @@ public class OrdenesController {
 
     @FXML
     void makeOrder(ActionEvent event) {
+    	
 
     }
 
@@ -175,8 +176,14 @@ public class OrdenesController {
 
     @FXML
     void preData(ActionEvent event) {
-
+    	
+    	double cifPre=Double.parseDouble(cifPresupuestados.getText());
+    	double baseCif=Double.parseDouble(cifPresupuestados.getText());
+    	double tasa=cifPre/baseCif;
+    	//linea para asignar los cif aplicados ya con la tasa
+    	buttonContinuar.setDisable(true);
     }
+    
 
 }
 

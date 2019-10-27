@@ -14,8 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="751.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.OrdenesController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="751.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.OrdenesController">
    <children>
       <Separator layoutX="146.0" orientation="VERTICAL" prefHeight="555.0" prefWidth="3.0" />
       <Label layoutX="14.0" layoutY="82.0" prefHeight="17.0" prefWidth="78.0" text="Periodo:" />
@@ -40,8 +39,8 @@
       <CheckBox fx:id="porcentajeTasa" layoutX="14.0" layoutY="235.0" mnemonicParsing="false" text="\%" />
       <Separator layoutX="12.0" layoutY="267.0" prefHeight="4.0" prefWidth="125.0" />
       <Label layoutX="11.0" layoutY="279.0" prefHeight="17.0" prefWidth="125.0" text="Desea calcularla?" />
-      <Button fx:id="buttonYesCalculate" layoutX="15.0" layoutY="303.0" mnemonicParsing="false" text="Si" />
-      <Button fx:id="buttonNoCalculate" layoutX="66.0" layoutY="303.0" mnemonicParsing="false" text="no" />
+      <Button fx:id="buttonYesCalculate" layoutX="15.0" layoutY="303.0" mnemonicParsing="false" onAction="#yesCalculate" text="Si" />
+      <Button fx:id="buttonNoCalculate" layoutX="66.0" layoutY="303.0" mnemonicParsing="false" onAction="#noCalculate" text="no" />
       <Label layoutX="14.0" layoutY="348.0" prefHeight="17.0" prefWidth="114.0" text="CIF presupuestados" />
       <TextField fx:id="cifPresupuestados" layoutX="14.0" layoutY="365.0" prefHeight="25.0" prefWidth="114.0" />
       <TextField fx:id="baseCif" layoutX="14.0" layoutY="420.0" prefHeight="25.0" prefWidth="114.0" />
@@ -142,6 +141,5 @@
       <Button fx:id="buttonTerminar" layoutX="623.0" layoutY="517.0" mnemonicParsing="false" onAction="#calculateCostState" prefHeight="34.0" prefWidth="114.0" text="Terminar" />
       <Button fx:id="buttonNewOrder" layoutX="680.0" layoutY="34.0" mnemonicParsing="false" onAction="#makeOrder" text="Done" />
       <Button fx:id="buttonContinuar" layoutX="12.0" layoutY="473.0" mnemonicParsing="false" onAction="#preData" prefHeight="25.0" prefWidth="118.0" text="Continuar" />
-      <Button fx:id="buttonCIFP1" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="CIF aplicados" />
    </children>
 </Pane>
