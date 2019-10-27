@@ -11,14 +11,15 @@ public class Main extends Application{
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
+
+	@Override
 	public void start(Stage stage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("flightMenu.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("ordenes.fxml"));
 		
 		Scene scene = new Scene(root);
 		stage.setTitle("flight");
 		stage.setScene(scene);
 		stage.show();
 	}
-
 }
+
