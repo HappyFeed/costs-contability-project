@@ -1,5 +1,8 @@
 package ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,6 +11,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import model.EstadoCostos;
+import model.Orden;
 
 public class OrdenesController {
 
@@ -142,6 +147,9 @@ public class OrdenesController {
 
     @FXML
     private Button buttonCIFP1;
+    
+    private EstadoCostos ec;
+    private List<Orden> ordenes=new ArrayList<Orden>();
 
     @FXML
     void calculateCostState(ActionEvent event) {
