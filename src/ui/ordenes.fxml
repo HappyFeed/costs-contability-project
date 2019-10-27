@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="751.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.OrdenesController">
+   <children>
+      <Separator layoutX="146.0" orientation="VERTICAL" prefHeight="555.0" prefWidth="3.0" />
+      <Label layoutX="14.0" layoutY="82.0" prefHeight="17.0" prefWidth="78.0" text="Periodo:" />
+      <TextField fx:id="term" layoutX="14.0" layoutY="104.0" prefHeight="25.0" prefWidth="91.0" />
+      <Label layoutX="14.0" layoutY="26.0" prefHeight="17.0" prefWidth="78.0" text="Nombre:" />
+      <TextField fx:id="companyName" layoutX="14.0" layoutY="47.0" prefHeight="25.0" prefWidth="91.0" />
+      <Separator layoutX="1.0" layoutY="164.0" prefHeight="4.0" prefWidth="147.0" />
+      <Label layoutX="3.0" layoutY="168.0" text="Tasa CIF" />
+      <Label layoutX="10.0" text="Datos" />
+      <Separator layoutX="44.0" layoutY="7.0" prefHeight="4.0" prefWidth="99.0" />
+      <Separator layoutX="53.0" layoutY="175.0" prefHeight="4.0" prefWidth="91.0" />
+      <ComboBox fx:id="tasaCIFComboBox" layoutX="12.0" layoutY="198.0" prefHeight="25.0" prefWidth="125.0" promptText="Tiene tasa CIF?">
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem mnemonicParsing="false" text="Si" />
+                  <MenuItem mnemonicParsing="false" text="No" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </ComboBox>
+      <CheckBox fx:id="porcentajeTasa" layoutX="14.0" layoutY="235.0" mnemonicParsing="false" text="\%" />
+      <Separator layoutX="12.0" layoutY="267.0" prefHeight="4.0" prefWidth="125.0" />
+      <Label layoutX="11.0" layoutY="279.0" prefHeight="17.0" prefWidth="125.0" text="Desea calcularla?" />
+      <Button fx:id="buttonYesCalculate" layoutX="15.0" layoutY="303.0" mnemonicParsing="false" text="Si" />
+      <Button fx:id="buttonNoCalculate" layoutX="66.0" layoutY="303.0" mnemonicParsing="false" text="no" />
+      <Label layoutX="14.0" layoutY="348.0" prefHeight="17.0" prefWidth="114.0" text="CIF presupuestados" />
+      <TextField fx:id="cifPresupuestados" layoutX="14.0" layoutY="365.0" prefHeight="25.0" prefWidth="114.0" />
+      <TextField fx:id="baseCif" layoutX="14.0" layoutY="420.0" prefHeight="25.0" prefWidth="114.0" />
+      <Label layoutX="14.0" layoutY="403.0" prefHeight="17.0" prefWidth="114.0" text="Base" />
+      <Separator layoutX="146.0" layoutY="90.0" prefHeight="4.0" prefWidth="602.0" />
+      <Label layoutX="152.0" prefHeight="17.0" prefWidth="63.0" text="Ordenes" />
+      <Separator layoutX="203.0" layoutY="8.0" prefHeight="4.0" prefWidth="547.0" />
+      <Label layoutX="152.0" layoutY="26.0" prefHeight="17.0" prefWidth="53.0" text="Nombre:" />
+      <TextField fx:id="nameOrden" layoutX="203.0" layoutY="22.0" />
+      <TextField fx:id="mdOrden" layoutX="402.0" layoutY="22.0" prefHeight="25.0" prefWidth="91.0" />
+      <TextField fx:id="cifAOrden" layoutX="549.0" layoutY="55.0" prefHeight="25.0" prefWidth="114.0" />
+      <TextField fx:id="modOrden" layoutX="549.0" layoutY="22.0" prefHeight="25.0" prefWidth="114.0" />
+      <ComboBox fx:id="periodoOrden" layoutX="153.0" layoutY="55.0" prefHeight="25.0" prefWidth="125.0" promptText="Periodo:">
+         <contextMenu>
+            <ContextMenu>
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Actual" />
+                  <MenuItem mnemonicParsing="false" text="Anterior" />
+               </items>
+            </ContextMenu>
+         </contextMenu>
+      </ComboBox>
+      <Label layoutX="376.0" layoutY="26.0" text="MD:" />
+      <Label layoutX="511.0" layoutY="26.0" prefHeight="17.0" prefWidth="31.0" text="MOD:" />
+      <ComboBox fx:id="estadoOrden" layoutX="303.0" layoutY="55.0" prefHeight="25.0" prefWidth="125.0" promptText="Estado:">
+         <contextMenu>
+            <ContextMenu>
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Si" />
+                  <MenuItem mnemonicParsing="false" text="No" />
+               </items>
+            </ContextMenu>
+         </contextMenu>
+      </ComboBox>
+      <Label layoutX="466.0" layoutY="59.0" prefHeight="17.0" prefWidth="78.0" text="CIF Aplicados:" />
+      <GridPane gridLinesVisible="true" layoutX="153.0" layoutY="127.0" prefHeight="136.0" prefWidth="592.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="63.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="121.0" minHeight="10.0" prefHeight="109.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <VBox fx:id="estadoVboxP" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" />
+            <VBox fx:id="nameVboxP" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <VBox fx:id="mdVboxP" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <VBox fx:id="modVboxP" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <VBox fx:id="cifVboxP" prefHeight="109.0" prefWidth="91.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <Button fx:id="buttonNameP" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Nombre" GridPane.columnIndex="1" />
+            <Button fx:id="buttonMDP" mnemonicParsing="false" prefHeight="25.0" prefWidth="127.0" text="MD" GridPane.columnIndex="2" />
+            <Button fx:id="buttonMODP" mnemonicParsing="false" prefHeight="25.0" prefWidth="131.0" text="MOD" GridPane.columnIndex="3" />
+            <Button fx:id="buttonCIFP" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="CIF aplicados" GridPane.columnIndex="4" />
+            <Button fx:id="buttonEstadoP" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Estado" />
+         </children>
+      </GridPane>
+      <Separator layoutX="148.0" layoutY="513.0" prefHeight="4.0" prefWidth="602.0" />
+      <Label layoutX="149.0" layoutY="99.0" prefHeight="17.0" prefWidth="91.0" text="Periodo anterior" />
+      <Separator layoutX="240.0" layoutY="106.0" prefHeight="4.0" prefWidth="502.0" />
+      <Separator layoutX="146.0" layoutY="306.0" prefHeight="4.0" prefWidth="602.0" />
+      <Label layoutX="149.0" layoutY="308.0" prefHeight="17.0" prefWidth="91.0" text="Periodo actual" />
+      <Separator layoutX="240.0" layoutY="315.0" prefHeight="4.0" prefWidth="502.0" />
+      <GridPane gridLinesVisible="true" layoutX="153.0" layoutY="335.0" prefHeight="136.0" prefWidth="592.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="63.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="121.0" minHeight="10.0" prefHeight="109.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <VBox fx:id="estadoVboxA" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" />
+            <VBox fx:id="nameVboxA" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <VBox fx:id="mdVboxA" prefHeight="200.0" prefWidth="118.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <VBox fx:id="modVboxA" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <VBox fx:id="cifVboxA" prefHeight="109.0" prefWidth="79.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <Button fx:id="buttonCIFA" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="CIF aplicados" GridPane.columnIndex="4" />
+            <Button fx:id="buttonMODA" mnemonicParsing="false" prefHeight="25.0" prefWidth="131.0" text="MOD" GridPane.columnIndex="3" />
+            <Button fx:id="buttonMDA" mnemonicParsing="false" prefHeight="25.0" prefWidth="127.0" text="MD" GridPane.columnIndex="2" />
+            <Button fx:id="buttonNameA" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Nombre" GridPane.columnIndex="1" />
+            <Button fx:id="buttonEstadoA" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Estado" />
+         </children>
+      </GridPane>
+      <Label fx:id="nPaginaP" layoutX="425.0" layoutY="279.0" text="1" />
+      <Button fx:id="paginaAnteriorP" layoutX="381.0" layoutY="275.0" mnemonicParsing="false" onAction="#lastPageP" text="&lt;--" />
+      <Button fx:id="paginaSgtP" layoutX="443.0" layoutY="275.0" mnemonicParsing="false" onAction="#nextPageP" text="--&gt;" />
+      <Button fx:id="paginaAnteriorA" layoutX="381.0" layoutY="481.0" mnemonicParsing="false" onAction="#lastPageA" text="&lt;--" />
+      <Label fx:id="nPaginaA" layoutX="425.0" layoutY="485.0" text="1" />
+      <Button fx:id="paginaSgtA" layoutX="443.0" layoutY="481.0" mnemonicParsing="false" onAction="#nextPageA" text="--&gt;" />
+      <Button fx:id="buttonTerminar" layoutX="623.0" layoutY="517.0" mnemonicParsing="false" onAction="#calculateCostState" prefHeight="34.0" prefWidth="114.0" text="Terminar" />
+      <Button fx:id="buttonNewOrder" layoutX="680.0" layoutY="34.0" mnemonicParsing="false" onAction="#makeOrder" text="Done" />
+      <Button fx:id="buttonContinuar" layoutX="12.0" layoutY="473.0" mnemonicParsing="false" onAction="#preData" prefHeight="25.0" prefWidth="118.0" text="Continuar" />
+      <Button fx:id="buttonCIFP1" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="CIF aplicados" />
+   </children>
+</Pane>
