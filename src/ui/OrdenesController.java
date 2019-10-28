@@ -192,6 +192,14 @@ public class OrdenesController {
     	buttonContinuar.setDisable(true);
     }
     
+    @FXML
+    void yesCalculate(ActionEvent event) {
+
+    }
+    @FXML
+    void noCalculate(ActionEvent event) {
+
+    }
 
 }
 
