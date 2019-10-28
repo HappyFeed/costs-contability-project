@@ -23,7 +23,7 @@ public class OrdenesController {
     private TextField companyName;
 
     @FXML
-    private ComboBox<?> tasaCIFComboBox;
+    private ComboBox<String> tasaCIFComboBox;
 
     @FXML
     private CheckBox porcentajeTasa;
@@ -53,10 +53,13 @@ public class OrdenesController {
     private TextField modOrden;
 
     @FXML
-    private ComboBox<?> periodoOrden;
+    private TextField tasaCif;
+    
+    @FXML
+    private ComboBox<String> periodoOrden;
 
     @FXML
-    private ComboBox<?> estadoOrden;
+    private ComboBox<String> estadoOrden;
 
     @FXML
     private VBox estadoVboxP;
@@ -132,7 +135,16 @@ public class OrdenesController {
 
     @FXML
     private Label nPaginaA;
-
+    
+    @FXML
+    private Label questionCif;
+    
+    @FXML
+    private Label cifPresupuestadasLabel;
+    
+    @FXML
+    private Label  baseLabel;
+    
     @FXML
     private Button paginaSgtA;
 
@@ -151,6 +163,44 @@ public class OrdenesController {
     private EstadoCostos ec;
     private List<Orden> ordenes=new ArrayList<Orden>();
 
+    @FXML
+    void initialize() {
+    	tasaCIFComboBox.getItems().add("Si");
+    	tasaCIFComboBox.getItems().add("No");
+    	questionCif.setVisible(false);
+    	buttonYesCalculate.setVisible(false);
+    	buttonNoCalculate.setVisible(false);
+    	cifPresupuestadasLabel.setVisible(false);
+    	baseLabel.setVisible(false);
+    	cifPresupuestados.setVisible(false);
+    	baseCif.setVisible(false);
+    	tasaCif.setVisible(false);
+    	buttonContinuar.setDisable(true);
+    }
+    
+    @FXML
+    void calculateCifTasa(ActionEvent event) {
+    	if(tasaCIFComboBox.getValue().equals("No")) {
+    		tasaCIFComboBox.setDisable(true);
+        	questionCif.setVisible(true);
+        	buttonYesCalculate.setVisible(true);
+        	buttonNoCalculate.setVisible(true);
+
+    	}else {
+    		tasaCif.setVisible(true);   
+    		tasaCIFComboBox.setDisable(true);
+    	}
+    }
+    
+    @FXML
+    void correctData(ActionEvent event) {
+		if(tasaCif.getText()!=null) {
+			buttonContinuar.setDisable(false);
+		}else {
+			
+		}
+    }
+    
     @FXML
     void calculateCostState(ActionEvent event) {
 
@@ -184,21 +234,28 @@ public class OrdenesController {
 
     @FXML
     void preData(ActionEvent event) {
+    	if(cifPresupuestados.isDisable()) {
+    		double cifPre=Double.parseDouble(cifPresupuestados.getText());
+        	double baseCif=Double.parseDouble(cifPresupuestados.getText());
+        	double tasa=cifPre/baseCif;
+        	//linea para asignar los cif aplicados ya con la tasa
+        	buttonContinuar.setDisable(true);
+    	}
     	
-    	double cifPre=Double.parseDouble(cifPresupuestados.getText());
-    	double baseCif=Double.parseDouble(cifPresupuestados.getText());
-    	double tasa=cifPre/baseCif;
-    	//linea para asignar los cif aplicados ya con la tasa
-    	buttonContinuar.setDisable(true);
+    	
+    	
     }
     
     @FXML
     void yesCalculate(ActionEvent event) {
-
+    	cifPresupuestadasLabel.setVisible(true);
+    	baseLabel.setVisible(true);
+    	cifPresupuestados.setVisible(true);
+    	baseCif.setVisible(true);
     }
     @FXML
     void noCalculate(ActionEvent event) {
-
+    	buttonContinuar.setDisable(false);
     }
 
 }

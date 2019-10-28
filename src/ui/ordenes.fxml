@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="751.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.OrdenesController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="751.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.OrdenesController">
    <children>
       <Separator layoutX="146.0" orientation="VERTICAL" prefHeight="555.0" prefWidth="3.0" />
       <Label layoutX="14.0" layoutY="82.0" prefHeight="17.0" prefWidth="78.0" text="Periodo:" />
@@ -26,7 +26,7 @@
       <Label layoutX="10.0" text="Datos" />
       <Separator layoutX="44.0" layoutY="7.0" prefHeight="4.0" prefWidth="99.0" />
       <Separator layoutX="53.0" layoutY="175.0" prefHeight="4.0" prefWidth="91.0" />
-      <ComboBox fx:id="tasaCIFComboBox" layoutX="12.0" layoutY="198.0" prefHeight="25.0" prefWidth="125.0" promptText="Tiene tasa CIF?">
+      <ComboBox fx:id="tasaCIFComboBox" layoutX="12.0" layoutY="198.0" onAction="#calculateCifTasa" prefHeight="25.0" prefWidth="125.0" promptText="Tiene tasa CIF?">
          <contextMenu>
             <ContextMenu>
               <items>
@@ -37,14 +37,14 @@
          </contextMenu>
       </ComboBox>
       <CheckBox fx:id="porcentajeTasa" layoutX="14.0" layoutY="235.0" mnemonicParsing="false" text="\%" />
-      <Separator layoutX="12.0" layoutY="267.0" prefHeight="4.0" prefWidth="125.0" />
-      <Label layoutX="11.0" layoutY="279.0" prefHeight="17.0" prefWidth="125.0" text="Desea calcularla?" />
-      <Button fx:id="buttonYesCalculate" layoutX="15.0" layoutY="303.0" mnemonicParsing="false" onAction="#yesCalculate" text="Si" />
-      <Button fx:id="buttonNoCalculate" layoutX="66.0" layoutY="303.0" mnemonicParsing="false" onAction="#noCalculate" text="no" />
-      <Label layoutX="14.0" layoutY="348.0" prefHeight="17.0" prefWidth="114.0" text="CIF presupuestados" />
-      <TextField fx:id="cifPresupuestados" layoutX="14.0" layoutY="365.0" prefHeight="25.0" prefWidth="114.0" />
-      <TextField fx:id="baseCif" layoutX="14.0" layoutY="420.0" prefHeight="25.0" prefWidth="114.0" />
-      <Label layoutX="14.0" layoutY="403.0" prefHeight="17.0" prefWidth="114.0" text="Base" />
+      <Separator layoutX="12.0" layoutY="317.0" prefHeight="4.0" prefWidth="125.0" />
+      <Label fx:id="questionCif" layoutX="12.0" layoutY="327.0" prefHeight="17.0" prefWidth="125.0" text="Desea calcularla?" />
+      <Button fx:id="buttonYesCalculate" layoutX="28.0" layoutY="350.0" mnemonicParsing="false" onAction="#yesCalculate" text="Si" />
+      <Button fx:id="buttonNoCalculate" layoutX="71.0" layoutY="350.0" mnemonicParsing="false" onAction="#noCalculate" text="no" />
+      <Label fx:id="cifPresupuestadasLabel" layoutX="14.0" layoutY="386.0" prefHeight="17.0" prefWidth="114.0" text="CIF presupuestados" />
+      <TextField fx:id="cifPresupuestados" layoutX="14.0" layoutY="409.0" prefHeight="25.0" prefWidth="114.0" />
+      <TextField fx:id="baseCif" layoutX="14.0" layoutY="469.0" prefHeight="25.0" prefWidth="114.0" />
+      <Label fx:id="baseLabel" layoutX="14.0" layoutY="446.0" prefHeight="17.0" prefWidth="114.0" text="Base" />
       <Separator layoutX="146.0" layoutY="90.0" prefHeight="4.0" prefWidth="602.0" />
       <Label layoutX="152.0" prefHeight="17.0" prefWidth="63.0" text="Ordenes" />
       <Separator layoutX="203.0" layoutY="8.0" prefHeight="4.0" prefWidth="547.0" />
@@ -140,6 +140,7 @@
       <Button fx:id="paginaSgtA" layoutX="443.0" layoutY="481.0" mnemonicParsing="false" onAction="#nextPageA" text="--&gt;" />
       <Button fx:id="buttonTerminar" layoutX="623.0" layoutY="517.0" mnemonicParsing="false" onAction="#calculateCostState" prefHeight="34.0" prefWidth="114.0" text="Terminar" />
       <Button fx:id="buttonNewOrder" layoutX="680.0" layoutY="34.0" mnemonicParsing="false" onAction="#makeOrder" text="Done" />
-      <Button fx:id="buttonContinuar" layoutX="12.0" layoutY="473.0" mnemonicParsing="false" onAction="#preData" prefHeight="25.0" prefWidth="118.0" text="Continuar" />
+      <Button fx:id="buttonContinuar" layoutX="12.0" layoutY="505.0" mnemonicParsing="false" onAction="#preData" prefHeight="25.0" prefWidth="118.0" text="Continuar" />
+      <TextField fx:id="tasaCif" layoutX="12.0" layoutY="275.0" onAction="#correctData" prefHeight="25.0" prefWidth="119.0" text="Digitela:" />
    </children>
 </Pane>
