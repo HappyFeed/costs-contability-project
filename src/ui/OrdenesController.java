@@ -194,10 +194,10 @@ public class OrdenesController {
     
     @FXML
     void correctData(ActionEvent event) {
-		if(tasaCif.getText()!=null) {
-			buttonContinuar.setDisable(false);
-		}else {
+		if(tasaCif.getText().isEmpty()) {
 			
+		}else {
+			buttonContinuar.setDisable(false);
 		}
     }
     
@@ -234,6 +234,14 @@ public class OrdenesController {
 
     @FXML
     void preData(ActionEvent event) {
+    	String nameCompany=companyName.getText();
+    	String termStateCost=term.getText();
+    	if(nameCompany.isEmpty()) {
+    		
+    	}
+    	if(termStateCost.isEmpty()) {
+    		
+    	}
     	if(cifPresupuestados.isDisable()) {
     		double cifPre=Double.parseDouble(cifPresupuestados.getText());
         	double baseCif=Double.parseDouble(cifPresupuestados.getText());
@@ -241,8 +249,6 @@ public class OrdenesController {
         	//linea para asignar los cif aplicados ya con la tasa
         	buttonContinuar.setDisable(true);
     	}
-    	
-    	
     	
     }
     
