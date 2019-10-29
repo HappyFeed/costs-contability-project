@@ -212,7 +212,6 @@ public class OrdenesController {
         		if(porcentajeTasa.isSelected()) {
         			tasa=tasa/100;
         		}
-        		System.out.println(tasa);
     			buttonContinuar.setDisable(false);
     		}
     		tasaCif.setEditable(false);
@@ -295,8 +294,6 @@ public class OrdenesController {
         		throw new NoDataException(nameCompany);
         	}
         	if(cifPresupuestados.isVisible()) {
-
-        		System.out.println("entro");
         		double cifPre=Double.parseDouble(cifPresupuestados.getText());
             	double baseCif1=Double.parseDouble(baseCif.getText());
             	if(cifPre<0) {
@@ -309,7 +306,6 @@ public class OrdenesController {
         		if(porcentajeTasa.isSelected()) {
         			tasa=tasa/100;
         		}
-        		System.out.println(tasa);
             	//linea para asignar los cif aplicados ya con la tasa
             	buttonContinuar.setDisable(true);
         	}
