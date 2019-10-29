@@ -202,11 +202,53 @@ public class OrdenesController {
     
     @FXML
     void correctData(ActionEvent event) {
-		if(tasaCif.getText().isEmpty()) {
-			
-		}else {
-			buttonContinuar.setDisable(false);
-		}
+    	try {
+    		double tasa=Double.parseDouble(tasaCif.getText());
+    		if(tasaCif.getText().isEmpty()) {
+    			throw new NoDataException(tasaCif.getText());
+    		}else if(tasa<0){
+    			throw new NegativeNumberException(tasa);
+    		}else {
+        		if(porcentajeTasa.isSelected()) {
+        			tasa=tasa/100;
+        		}
+        		System.out.println(tasa);
+    			buttonContinuar.setDisable(false);
+    		}
+    		tasaCif.setEditable(false);
+    	}catch(NoDataException nde) {
+			Alert score = new Alert(AlertType.ERROR);
+		    score.setTitle("Contabilidad y costos");
+		    score.initStyle(StageStyle.DECORATED);
+		    score.setContentText(nde.getMessage());
+		    score.show();
+		    companyName.setText("");
+		    term.setText("");
+		    buttonContinuar.setDisable(true);
+    		tasaCIFComboBox.setDisable(false);
+    		tasaCif.setVisible(false);
+    		term.setEditable(true);
+        	companyName.setEditable(true);
+    	}catch(NegativeNumberException nne) {
+			Alert score = new Alert(AlertType.ERROR);
+		    score.setTitle("Contabilidad y costos");
+		    score.initStyle(StageStyle.DECORATED);
+		    score.setContentText(nne.getMessage());
+		    score.show();
+		    cifPresupuestados.setText("");
+		    baseCif.setText("");
+		    buttonContinuar.setDisable(true);
+    	}catch(NumberFormatException nfe) {
+			Alert score = new Alert(AlertType.ERROR);
+		    score.setTitle("Contabilidad y costos");
+		    score.initStyle(StageStyle.DECORATED);
+		    score.setContentText(nfe.getMessage());
+		    score.show();
+		    cifPresupuestados.setText("");
+		    baseCif.setText("");
+		    buttonContinuar.setDisable(true);
+    	}
+		
     }
     
     @FXML
@@ -243,6 +285,7 @@ public class OrdenesController {
     @FXML
     void preData(ActionEvent event){
     	try {
+
         	String nameCompany=companyName.getText();
         	String termStateCost=term.getText();
         	if(nameCompany.isEmpty()) {
@@ -252,6 +295,7 @@ public class OrdenesController {
         		throw new NoDataException(nameCompany);
         	}
         	if(cifPresupuestados.isVisible()) {
+
         		System.out.println("entro");
         		double cifPre=Double.parseDouble(cifPresupuestados.getText());
             	double baseCif1=Double.parseDouble(baseCif.getText());
@@ -262,6 +306,10 @@ public class OrdenesController {
             		throw new NegativeNumberException(baseCif1);
             	}
             	double tasa=cifPre/baseCif1;
+        		if(porcentajeTasa.isSelected()) {
+        			tasa=tasa/100;
+        		}
+        		System.out.println(tasa);
             	//linea para asignar los cif aplicados ya con la tasa
             	buttonContinuar.setDisable(true);
         	}
