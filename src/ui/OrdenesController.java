@@ -156,6 +156,15 @@ public class OrdenesController {
     @FXML
     private Button buttonCIFP1;
     
+    @FXML
+    private Label nombreLabel;
+    
+    @FXML
+    private Label mdLabel;
+
+    @FXML
+    private Label modLabel;
+    
     private EstadoCostos ec;
     private List<Orden> ordenes=new ArrayList<Orden>();
 
@@ -164,6 +173,18 @@ public class OrdenesController {
     	tasaCIFComboBox.getItems().add("Horas maquina");
     	tasaCIFComboBox.getItems().add("Horas hombre");
     	tasaCif.setEditable(false);
+    	nameOrden.setVisible(false);
+    	nombreLabel.setVisible(false);
+    	mdLabel.setVisible(false);
+    	modLabel.setVisible(false);
+    	nameOrden.setVisible(false);
+    	mdOrden.setVisible(false);
+    	modOrden.setVisible(false);
+    	cifAOrden.setVisible(false);
+    	estadoOrden.setVisible(false);
+    	periodoOrden.setVisible(false);
+    	buttonNewOrder.setVisible(false);
+    	
 
     }
     

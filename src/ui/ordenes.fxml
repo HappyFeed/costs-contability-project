@@ -43,7 +43,7 @@
       <Separator layoutX="146.0" layoutY="90.0" prefHeight="4.0" prefWidth="602.0" />
       <Label layoutX="152.0" prefHeight="17.0" prefWidth="63.0" text="Ordenes" />
       <Separator layoutX="203.0" layoutY="8.0" prefHeight="4.0" prefWidth="547.0" />
-      <Label layoutX="152.0" layoutY="26.0" prefHeight="17.0" prefWidth="53.0" text="Nombre:" />
+      <Label fx:id="nombreLabel" layoutX="152.0" layoutY="26.0" prefHeight="17.0" prefWidth="53.0" text="Nombre:" />
       <TextField fx:id="nameOrden" layoutX="203.0" layoutY="22.0" />
       <TextField fx:id="mdOrden" layoutX="402.0" layoutY="22.0" prefHeight="25.0" prefWidth="91.0" />
       <TextField fx:id="cifAOrden" layoutX="549.0" layoutY="55.0" prefHeight="25.0" prefWidth="114.0" />
@@ -58,8 +58,8 @@
             </ContextMenu>
          </contextMenu>
       </ComboBox>
-      <Label layoutX="376.0" layoutY="26.0" text="MD:" />
-      <Label layoutX="511.0" layoutY="26.0" prefHeight="17.0" prefWidth="31.0" text="MOD:" />
+      <Label fx:id="mdLabel" layoutX="376.0" layoutY="26.0" text="MD:" />
+      <Label fx:id="modLabel" layoutX="511.0" layoutY="26.0" prefHeight="17.0" prefWidth="31.0" text="MOD:" />
       <ComboBox fx:id="estadoOrden" layoutX="303.0" layoutY="55.0" prefHeight="25.0" prefWidth="125.0" promptText="Estado:">
          <contextMenu>
             <ContextMenu>
