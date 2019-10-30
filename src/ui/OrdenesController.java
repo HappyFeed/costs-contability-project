@@ -32,15 +32,6 @@ public class OrdenesController {
     private ComboBox<String> tasaCIFComboBox;
 
     @FXML
-    private CheckBox porcentajeTasa;
-
-    @FXML
-    private Button buttonYesCalculate;
-
-    @FXML
-    private Button buttonNoCalculate;
-
-    @FXML
     private TextField cifPresupuestados;
 
     @FXML
@@ -131,6 +122,9 @@ public class OrdenesController {
     private Label nPaginaP;
 
     @FXML
+    private Label baseKnd;
+    
+    @FXML
     private Button paginaAnteriorP;
 
     @FXML
@@ -142,8 +136,6 @@ public class OrdenesController {
     @FXML
     private Label nPaginaA;
     
-    @FXML
-    private Label questionCif;
     
     @FXML
     private Label cifPresupuestadasLabel;
@@ -171,85 +163,31 @@ public class OrdenesController {
 
     @FXML
     void initialize() {
-    	tasaCIFComboBox.getItems().add("Si");
-    	tasaCIFComboBox.getItems().add("No");
-    	questionCif.setVisible(false);
-    	buttonYesCalculate.setVisible(false);
-    	buttonNoCalculate.setVisible(false);
-    	cifPresupuestadasLabel.setVisible(false);
-    	baseLabel.setVisible(false);
-    	cifPresupuestados.setVisible(false);
-    	baseCif.setVisible(false);
-    	tasaCif.setVisible(false);
-    	buttonContinuar.setDisable(true);
+    	tasaCIFComboBox.getItems().add("Horas maquina");
+    	tasaCIFComboBox.getItems().add("Horas hombre");
+    	tasaCif.setEditable(false);
     }
     
     @FXML
     void calculateCifTasa(ActionEvent event) {
-    	term.setEditable(false);
-    	companyName.setEditable(false);
-    	if(tasaCIFComboBox.getValue().equals("No")) {
-    		tasaCIFComboBox.setDisable(true);
-        	questionCif.setVisible(true);
-        	buttonYesCalculate.setVisible(true);
-        	buttonNoCalculate.setVisible(true);
-
-    	}else {
-    		tasaCif.setVisible(true);   
-    		tasaCIFComboBox.setDisable(true);
-    	}
-    }
-    
-    @FXML
-    void correctData(ActionEvent event) {
     	try {
-    		double tasa=Double.parseDouble(tasaCif.getText());
-    		if(tasaCif.getText().isEmpty()) {
-    			throw new NoDataException(tasaCif.getText());
-    		}else if(tasa<0){
-    			throw new NegativeNumberException(tasa);
-    		}else {
-        		if(porcentajeTasa.isSelected()) {
-        			tasa=tasa/100;
-        		}
-    			buttonContinuar.setDisable(false);
-    		}
-    		tasaCif.setEditable(false);
-    	}catch(NoDataException nde) {
-			Alert score = new Alert(AlertType.ERROR);
-		    score.setTitle("Contabilidad y costos");
-		    score.initStyle(StageStyle.DECORATED);
-		    score.setContentText(nde.getMessage());
-		    score.show();
-		    companyName.setText("");
-		    term.setText("");
-		    buttonContinuar.setDisable(true);
-    		tasaCIFComboBox.setDisable(false);
-    		tasaCif.setVisible(false);
-    		term.setEditable(true);
-        	companyName.setEditable(true);
-    	}catch(NegativeNumberException nne) {
-			Alert score = new Alert(AlertType.ERROR);
-		    score.setTitle("Contabilidad y costos");
-		    score.initStyle(StageStyle.DECORATED);
-		    score.setContentText(nne.getMessage());
-		    score.show();
-		    cifPresupuestados.setText("");
-		    baseCif.setText("");
-		    buttonContinuar.setDisable(true);
-    	}catch(NumberFormatException nfe) {
-			Alert score = new Alert(AlertType.ERROR);
-		    score.setTitle("Contabilidad y costos");
-		    score.initStyle(StageStyle.DECORATED);
-		    score.setContentText(nfe.getMessage());
-		    score.show();
-		    cifPresupuestados.setText("");
-		    baseCif.setText("");
-		    buttonContinuar.setDisable(true);
+        	term.setEditable(false);
+        	companyName.setEditable(false);
+        	String n=tasaCIFComboBox.getValue();
+        	if(n.equals("Horas maquina")) {
+        		tasaCIFComboBox.setEditable(false);
+        		baseKnd.setText("Horas maquina");
+        	}else {
+        		tasaCIFComboBox.setEditable(false);
+        		baseKnd.setText("Horas hombre");
+        	}
+    	    buttonContinuar.setDisable(false);
+    	}catch(NullPointerException npe) {
+    		npe.printStackTrace();
     	}
-		
+
     }
-    
+        
     @FXML
     void calculateCostState(ActionEvent event) {
 
@@ -267,8 +205,44 @@ public class OrdenesController {
 
     @FXML
     void makeOrder(ActionEvent event) {
-    	
+    	try{
+        	String nameOrder=nameOrden.getText();
+        	if(nameOrder.isEmpty()) {
+        		throw new NoDataException(nameOrder);
+        	}
+        	double md= Double.parseDouble(mdOrden.getText());
+        	if(md<0) {
+        		throw new NegativeNumberException(md);
+        	}else if(mdOrden.getText().isEmpty()) {
+        		throw new NoDataException(mdOrden.getText());
+        	}
+        	double mod=Double.parseDouble(modOrden.getText());
+        	if(mod<0) {
+        		throw new NegativeNumberException(md);
+        	}else if(modOrden.getText().isEmpty()) {
+        		throw new NoDataException(modOrden.getText());
+        	}
+        	/*if(tasaCIFComboBox.getValue().equals("Si")|| ) {
+        		
+        	}*/
+        	//Order n= new Order();
+    	}catch(NoDataException nde) {
+    		Alert score = new Alert(AlertType.ERROR);
+		    score.setTitle("Contabilidad y costos");
+		    score.initStyle(StageStyle.DECORATED);
+		    score.setContentText(nde.getMessage());
+		    score.show();
+		    nameOrden.setText("");
+    	}catch(NegativeNumberException nne) {
+			Alert score = new Alert(AlertType.ERROR);
+		    score.setTitle("Contabilidad y costos");
+		    score.initStyle(StageStyle.DECORATED);
+		    score.setContentText(nne.getMessage());
+		    score.show();
+		    mdOrden.setText("");
+    	}
 
+    	
     }
 
     @FXML
@@ -293,22 +267,22 @@ public class OrdenesController {
         	if(termStateCost.isEmpty()) {
         		throw new NoDataException(nameCompany);
         	}
-        	if(cifPresupuestados.isVisible()) {
         		double cifPre=Double.parseDouble(cifPresupuestados.getText());
             	double baseCif1=Double.parseDouble(baseCif.getText());
             	if(cifPre<0) {
             		throw new NegativeNumberException(cifPre);
+            	}else if(cifPresupuestados.getText().isEmpty()) {
+            		throw new NoDataException(cifPresupuestados.getText());
             	}
             	if(baseCif1<0) {
             		throw new NegativeNumberException(baseCif1);
+            	}else if(baseCif.getText().isEmpty()) {
+            		throw new NoDataException(baseCif.getText());
             	}
             	double tasa=cifPre/baseCif1;
-        		if(porcentajeTasa.isSelected()) {
-        			tasa=tasa/100;
-        		}
-            	//linea para asignar los cif aplicados ya con la tasa
+            	tasaCif.setText(""+tasa);
             	buttonContinuar.setDisable(true);
-        	}
+        	
     	}catch(NoDataException nde) {
 			Alert score = new Alert(AlertType.ERROR);
 		    score.setTitle("Contabilidad y costos");
@@ -318,10 +292,9 @@ public class OrdenesController {
 		    companyName.setText("");
 		    term.setText("");
 		    buttonContinuar.setDisable(true);
-    		tasaCIFComboBox.setDisable(false);
-    		tasaCif.setVisible(false);
     		term.setEditable(true);
         	companyName.setEditable(true);
+        	tasaCIFComboBox.setEditable(true);
     	}catch(NegativeNumberException nne) {
 			Alert score = new Alert(AlertType.ERROR);
 		    score.setTitle("Contabilidad y costos");
@@ -331,6 +304,7 @@ public class OrdenesController {
 		    cifPresupuestados.setText("");
 		    baseCif.setText("");
 		    buttonContinuar.setDisable(true);
+		    tasaCIFComboBox.setEditable(true);
     	}catch(NumberFormatException nfe) {
 			Alert score = new Alert(AlertType.ERROR);
 		    score.setTitle("Contabilidad y costos");
@@ -340,22 +314,10 @@ public class OrdenesController {
 		    cifPresupuestados.setText("");
 		    baseCif.setText("");
 		    buttonContinuar.setDisable(true);
+		    tasaCIFComboBox.setEditable(true);
     	}
 
     	
-    }
-    
-    @FXML
-    void yesCalculate(ActionEvent event) {
-    	cifPresupuestadasLabel.setVisible(true);
-    	baseLabel.setVisible(true);
-    	cifPresupuestados.setVisible(true);
-    	baseCif.setVisible(true);
-    	buttonContinuar.setDisable(false);
-    }
-    @FXML
-    void noCalculate(ActionEvent event) {
-    	buttonContinuar.setDisable(false);
     }
 
 }
