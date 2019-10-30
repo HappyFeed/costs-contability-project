@@ -9,14 +9,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import javafx.stage.StageStyle;
-import jdk.nashorn.internal.ir.ContinueNode;
 import model.EstadoCostos;
 import model.Orden;
 
@@ -166,26 +164,45 @@ public class OrdenesController {
     	tasaCIFComboBox.getItems().add("Horas maquina");
     	tasaCIFComboBox.getItems().add("Horas hombre");
     	tasaCif.setEditable(false);
+
     }
     
     @FXML
     void calculateCifTasa(ActionEvent event) {
     	try {
+        	String nameCompany=companyName.getText();
+        	String termStateCost=term.getText();
+        	if(nameCompany.isEmpty()) {
+        		throw new NoDataException(nameCompany);
+        	}
+        	if(termStateCost.isEmpty()) {
+        		throw new NoDataException(nameCompany);
+        	}
         	term.setEditable(false);
         	companyName.setEditable(false);
         	String n=tasaCIFComboBox.getValue();
         	if(n.equals("Horas maquina")) {
-        		tasaCIFComboBox.setEditable(false);
+        		tasaCIFComboBox.setDisable(false);
         		baseKnd.setText("Horas maquina");
         	}else {
-        		tasaCIFComboBox.setEditable(false);
+        		tasaCIFComboBox.setDisable(false);
         		baseKnd.setText("Horas hombre");
         	}
     	    buttonContinuar.setDisable(false);
-    	}catch(NullPointerException npe) {
-    		npe.printStackTrace();
+    	}catch(NoDataException nde) {
+			Alert score = new Alert(AlertType.ERROR);
+		    score.setTitle("Contabilidad y costos");
+		    score.initStyle(StageStyle.DECORATED);
+		    score.setContentText(nde.getMessage());
+		    score.show();
+		    companyName.setText("");
+		    term.setText("");
+		    buttonContinuar.setDisable(true);
+    		term.setEditable(true);
+        	companyName.setEditable(true);
+        	tasaCIFComboBox.setDisable(false);
     	}
-
+    	
     }
         
     @FXML
@@ -195,12 +212,22 @@ public class OrdenesController {
 
     @FXML
     void lastPageA(ActionEvent event) {
-
+        int newPage= Integer.parseInt(nPaginaA.getText())-1;
+        if(newPage>0) {
+        	nPaginaA.setText(newPage+"");
+        	clearDataA();
+        	showTableA();
+        }
     }
 
     @FXML
     void lastPageP(ActionEvent event) {
-
+        int newPage= Integer.parseInt(nPaginaP.getText())-1;
+        if(newPage>0) {
+        	nPaginaP.setText(newPage+"");
+        	clearDataP();
+        	showTableP();
+        }
     }
 
     @FXML
@@ -245,28 +272,122 @@ public class OrdenesController {
     	
     }
 
+    public void clearDataA() {
+    	estadoVboxA.getChildren().clear();
+    	nameVboxA.getChildren().clear();
+    	mdVboxA.getChildren().clear();
+    	modVboxA.getChildren().clear();
+    	cifVboxA.getChildren().clear();
+    }
+    
+    public void clearDataP() {
+    	estadoVboxP.getChildren().clear();
+    	nameVboxP.getChildren().clear();
+    	mdVboxP.getChildren().clear();
+    	modVboxP.getChildren().clear();
+    	cifVboxP.getChildren().clear();
+    }
+    
     @FXML
     void nextPageA(ActionEvent event) {
-
+    	ArrayList<Orden> n= new ArrayList<Orden>();
+    	for(int i=0;i<ordenes.size();i++) {
+    		if(ordenes.get(i).getPeriodo().equals("Actual")) {
+    			n.add(ordenes.get(i));
+    		}
+    	}
+    	int newPage= Integer.parseInt(nPaginaA.getText())+1;
+        if(newPage<(n.size()/4)+2) {
+        	nPaginaA.setText(newPage+"");
+        	clearDataA();
+        	showTableA();
+        }
     }
 
     @FXML
     void nextPageP(ActionEvent event) {
-
+    	ArrayList<Orden> n= new ArrayList<Orden>();
+    	for(int i=0;i<ordenes.size();i++) {
+    		if(ordenes.get(i).getPeriodo().equals("Anterior")) {
+    			n.add(ordenes.get(i));
+    		}
+    	}
+    	int newPage= Integer.parseInt(nPaginaP.getText())+1;
+        if(newPage<(n.size()/4)+2) {
+        	nPaginaP.setText(newPage+"");
+        	clearDataP();
+        	showTableP();
+        }
     }
 
+    public void showTableP() {
+    	ArrayList<Orden> n= new ArrayList<Orden>();
+    	for(int i=0;i<ordenes.size();i++) {
+    		if(ordenes.get(i).getPeriodo().equals("Anterior")) {
+    			n.add(ordenes.get(i));
+    		}
+    	}
+    	int pages=(n.size()/4);
+    	if(n.size()%4>0) {
+    		pages+=1;
+    	}
+    	for(int j=0;j<pages;j++){
+    		if(j+1==Integer.parseInt(nPaginaP.getText())){
+    	    	for (int i = (4*j); i <4+(4*j) && i<n.size(); i++) {
+    	    		Label e = new Label("\t"+n.get(i).getEstado());
+    				Label na = new Label("\t"+n.get(i).getNombre());
+    				Label md = new Label("\t"+n.get(i).getMd());
+    				Label mod = new Label("\t"+n.get(i).getMod());
+    				Label cif = new Label("\t"+n.get(i).getCif());			
+    				
+    				estadoVboxP.getChildren().add(e);
+    				nameVboxP.getChildren().add(na);
+    				mdVboxP.getChildren().add(md);
+    				modVboxP.getChildren().add(mod);
+    				cifVboxP.getChildren().add(cif);
+    		    }
+    	    }
+		}
+    }
+    
+    public void showTableA() {
+    	ArrayList<Orden> n= new ArrayList<Orden>();
+    	for(int i=0;i<ordenes.size();i++) {
+    		if(ordenes.get(i).getPeriodo().equals("Actual")) {
+    			n.add(ordenes.get(i));
+    		}
+    	}
+    	int pages=(n.size()/4);
+    	if(n.size()%4>0) {
+    		pages+=1;
+    	}
+    	for(int j=0;j<pages;j++){
+    		if(j+1==Integer.parseInt(nPaginaA.getText())){
+    	    	for (int i = (4*j); i <4+(4*j) && i<n.size(); i++) {
+    	    		Label e = new Label("\t"+n.get(i).getEstado());
+    				Label na = new Label("\t"+n.get(i).getNombre());
+    				Label md = new Label("\t"+n.get(i).getMd());
+    				Label mod = new Label("\t"+n.get(i).getMod());
+    				Label cif = new Label("\t"+n.get(i).getCif());			
+    				
+    				estadoVboxA.getChildren().add(e);
+    				nameVboxA.getChildren().add(na);
+    				mdVboxA.getChildren().add(md);
+    				modVboxA.getChildren().add(mod);
+    				cifVboxA.getChildren().add(cif);
+    		    }
+    	    }
+		}
+    }
+    
     @FXML
     void preData(ActionEvent event){
+    	for (int i = 0; i < 20; i++) {
+			ordenes.add(new Orden("A","Actual","F",i,i,i));
+		}
     	try {
 
-        	String nameCompany=companyName.getText();
-        	String termStateCost=term.getText();
-        	if(nameCompany.isEmpty()) {
-        		throw new NoDataException(nameCompany);
-        	}
-        	if(termStateCost.isEmpty()) {
-        		throw new NoDataException(nameCompany);
-        	}
+
         		double cifPre=Double.parseDouble(cifPresupuestados.getText());
             	double baseCif1=Double.parseDouble(baseCif.getText());
             	if(cifPre<0) {
@@ -279,22 +400,18 @@ public class OrdenesController {
             	}else if(baseCif.getText().isEmpty()) {
             		throw new NoDataException(baseCif.getText());
             	}
-            	double tasa=cifPre/baseCif1;
-            	tasaCif.setText(""+tasa);
+            	double tasa=redondearDecimales((cifPre/baseCif1),2); 
+            	tasaCif.setText(tasa+"");
             	buttonContinuar.setDisable(true);
-        	
+            	tasaCIFComboBox.setDisable(true);
     	}catch(NoDataException nde) {
 			Alert score = new Alert(AlertType.ERROR);
 		    score.setTitle("Contabilidad y costos");
 		    score.initStyle(StageStyle.DECORATED);
 		    score.setContentText(nde.getMessage());
 		    score.show();
-		    companyName.setText("");
-		    term.setText("");
-		    buttonContinuar.setDisable(true);
-    		term.setEditable(true);
-        	companyName.setEditable(true);
-        	tasaCIFComboBox.setEditable(true);
+		    baseCif.setText("");
+		    cifPresupuestados.setText("");
     	}catch(NegativeNumberException nne) {
 			Alert score = new Alert(AlertType.ERROR);
 		    score.setTitle("Contabilidad y costos");
@@ -318,6 +435,16 @@ public class OrdenesController {
     	}
 
     	
+    }
+    
+    public static double redondearDecimales(double valorInicial, int numeroDecimales) {
+        double parteEntera, resultado;
+        resultado = valorInicial;
+        parteEntera = Math.floor(resultado);
+        resultado=(resultado-parteEntera)*Math.pow(10, numeroDecimales);
+        resultado=Math.round(resultado);
+        resultado=(resultado/Math.pow(10, numeroDecimales))+parteEntera;
+        return resultado;
     }
 
 }
