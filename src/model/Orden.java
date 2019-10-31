@@ -8,11 +8,7 @@ public class Orden {
 	private double md;
 	private double cif;
 	private double mod;
-	public static String ACTUAL;
-	public static String ANTERIOR;
-	public static String TERMINADO;
-	public static String PROCESO;
-	public static String VENDIDA;
+	
 	
 	public Orden(String nombre, String periodo, String estado, double md, double cif, double mod) {
 		this.nombre = nombre;

@@ -172,6 +172,11 @@ public class OrdenesController {
     void initialize() {
     	tasaCIFComboBox.getItems().add("Horas maquina");
     	tasaCIFComboBox.getItems().add("Horas hombre");
+    	periodoOrden.getItems().add("ACTUAL");
+    	periodoOrden.getItems().add("ANTERIOR");
+    	estadoOrden.getItems().add("TERMINADO");
+    	estadoOrden.getItems().add("PROCESO");
+    	estadoOrden.getItems().add("VENDIDA");
     	tasaCif.setEditable(false);
     	nameOrden.setVisible(false);
     	nombreLabel.setVisible(false);
@@ -184,7 +189,7 @@ public class OrdenesController {
     	estadoOrden.setVisible(false);
     	periodoOrden.setVisible(false);
     	buttonNewOrder.setVisible(false);
-    	
+    	baseKnd.setVisible(false);
 
     }
     
@@ -223,6 +228,7 @@ public class OrdenesController {
         	companyName.setEditable(true);
         	tasaCIFComboBox.setDisable(false);
     	}
+    	
     	
     }
         
@@ -270,10 +276,9 @@ public class OrdenesController {
         	}else if(modOrden.getText().isEmpty()) {
         		throw new NoDataException(modOrden.getText());
         	}
-        	/*if(tasaCIFComboBox.getValue().equals("Si")|| ) {
-        		
-        	}*/
-        	//Order n= new Order();
+        	
+        	Orden n= new Orden(nameOrden.getText(), periodoOrden.getValue(), estadoOrden.getValue(),Double.parseDouble( mdOrden.getText()), Double.parseDouble(cifAOrden.getText())*Double.parseDouble(tasaCif.getText()),Double.parseDouble(modOrden.getText()));
+        	ordenes.add(n);
     	}catch(NoDataException nde) {
     		Alert score = new Alert(AlertType.ERROR);
 		    score.setTitle("Contabilidad y costos");
@@ -289,7 +294,8 @@ public class OrdenesController {
 		    score.show();
 		    mdOrden.setText("");
     	}
-
+    	
+    
     	
     }
 
@@ -313,7 +319,7 @@ public class OrdenesController {
     void nextPageA(ActionEvent event) {
     	ArrayList<Orden> n= new ArrayList<Orden>();
     	for(int i=0;i<ordenes.size();i++) {
-    		if(ordenes.get(i).getPeriodo().equals("Actual")) {
+    		if(ordenes.get(i).getPeriodo().equals("ACTUAL")) {
     			n.add(ordenes.get(i));
     		}
     	}
@@ -329,7 +335,7 @@ public class OrdenesController {
     void nextPageP(ActionEvent event) {
     	ArrayList<Orden> n= new ArrayList<Orden>();
     	for(int i=0;i<ordenes.size();i++) {
-    		if(ordenes.get(i).getPeriodo().equals("Anterior")) {
+    		if(ordenes.get(i).getPeriodo().equals("ACTUAL")) {
     			n.add(ordenes.get(i));
     		}
     	}
@@ -344,7 +350,7 @@ public class OrdenesController {
     public void showTableP() {
     	ArrayList<Orden> n= new ArrayList<Orden>();
     	for(int i=0;i<ordenes.size();i++) {
-    		if(ordenes.get(i).getPeriodo().equals("Anterior")) {
+    		if(ordenes.get(i).getPeriodo().equals("ANTERIOR")) {
     			n.add(ordenes.get(i));
     		}
     	}
@@ -374,7 +380,7 @@ public class OrdenesController {
     public void showTableA() {
     	ArrayList<Orden> n= new ArrayList<Orden>();
     	for(int i=0;i<ordenes.size();i++) {
-    		if(ordenes.get(i).getPeriodo().equals("Actual")) {
+    		if(ordenes.get(i).getPeriodo().equals("ACTUAL")) {
     			n.add(ordenes.get(i));
     		}
     	}
@@ -403,9 +409,6 @@ public class OrdenesController {
     
     @FXML
     void preData(ActionEvent event){
-    	for (int i = 0; i < 20; i++) {
-			ordenes.add(new Orden("A","Actual","F",i,i,i));
-		}
     	try {
 
 
@@ -425,6 +428,20 @@ public class OrdenesController {
             	tasaCif.setText(tasa+"");
             	buttonContinuar.setDisable(true);
             	tasaCIFComboBox.setDisable(true);
+
+            	nameOrden.setVisible(true);
+            	nombreLabel.setVisible(true);
+            	mdLabel.setVisible(true);
+            	modLabel.setVisible(true);
+            	nameOrden.setVisible(true);
+            	mdOrden.setVisible(true);
+            	modOrden.setVisible(true);
+            	cifAOrden.setVisible(true);
+            	estadoOrden.setVisible(true);
+            	periodoOrden.setVisible(true);
+            	buttonNewOrder.setVisible(true);
+            	baseKnd.setVisible(true);
+
     	}catch(NoDataException nde) {
 			Alert score = new Alert(AlertType.ERROR);
 		    score.setTitle("Contabilidad y costos");
