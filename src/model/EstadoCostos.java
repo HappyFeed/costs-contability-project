@@ -1,7 +1,14 @@
 package model;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
 public class EstadoCostos {
 	
+	private String nombreEmpresa;
+	private String periodoRealizacion;
 	private double invInicialMD;
 	private double compras;
 	private double invFinalMD;
@@ -15,6 +22,8 @@ public class EstadoCostos {
 	private double invInicialPT;
 	private double invFinalPT;
 	private double costoDeVenta;
+	
+	private ArrayList<Orden> ordenes;
 	
 	public EstadoCostos() {
 	}
@@ -123,7 +132,80 @@ public class EstadoCostos {
 		this.costoDeVenta = costoTotalPT+invInicialPT-invFinalPT;
 	}
 	
+	public void setOrdenes(ArrayList<Orden> ordenes) {
+		this.ordenes = ordenes;
+	}
 	
+	public void setNombreEmpresa(String nombreEmpresa) {
+		this.nombreEmpresa = nombreEmpresa;
+	}
+
+	public void setPeriodoRealizacion(String periodoRealizacion) {
+		this.periodoRealizacion = periodoRealizacion;
+	}
+
+	public void exportCostState(String path) throws FileNotFoundException {
+		  PrintWriter pw= new PrintWriter(new File(path));
+		  String evalu="";
+		  File f=new File(path);
+		  String nameFile=f.getName();
+		  if(nameFile.equals("data/EstadoDeCostos.txt")) {
+			  
+		  }else {
+			  for(int i=0;i<ordenes.size();i++) {
+				  if (ordenes.get(i).getPeriodo().equals("ACTUAL")) {
+				  invInicialMD+=ordenes.get(i).getMd();
+				  mod+=ordenes.get(i).getMod();
+				  cif+=ordenes.get(i).getCif();
+				  }
+				  if (ordenes.get(i).getPeriodo().equals("ANTERIOR")&&ordenes.get(i).getEstado().equals("PROCESO")) {
+					  invInicialPP+=ordenes.get(i).totalCosto();
+				  }	 else if (ordenes.get(i).getPeriodo().equals("ACTUAL")&&ordenes.get(i).getEstado().equals("PROCESO")) {
+					invFinalPP+=ordenes.get(i).totalCosto();
+				  }
+				  
+				  if (ordenes.get(i).getPeriodo().equals("ANTERIOR")&&ordenes.get(i).getEstado().equals("TERMINADA")) {
+					invInicialPT+=ordenes.get(i).totalCosto();
+				  }else if (ordenes.get(i).getPeriodo().equals("ACTUAL")&&ordenes.get(i).getEstado().equals("TERMINADA")) {
+					invFinalPT+=ordenes.get(i).totalCosto();
+				  }
+				  
+			
+				  
+				  
+			  }
+			  
+			  setConsumoDeMD();
+			  setCostoAgregadosdeProduccion();
+			  setCostoTotalPT();
+			  setCostoDeVenta();
+			  
+			  evalu+="----------------------------------------------------------------------------" + "\n";
+			  evalu+=" "+nombreEmpresa + "\n";
+			  evalu+=" "+periodoRealizacion +"\n";
+			  evalu+="----------------------------------------------------------------------------" + "\n"+ "\n";
+			  evalu+=" Inventario Inicial de Material Directo         $"+invInicialMD+"\n";
+			  evalu+=" Compras de Material Directo                    $"+compras+"\n";
+			  evalu+=" Inventario Final de Material Directo           $-"+invFinalMD+"\n";
+			  evalu+=" ______________________________________________________________"+"\n";
+			  evalu+=" Consumo de Material Directo                    $"+consumoDeMD+"\n";
+			  evalu+=" Mano de Obra Directa                           $"+mod+"\n";
+			  evalu+=" Costos Indirectos de Fabricación               $"+cif+"\n";
+			  evalu+=" _______________________________________________________________"+"\n";
+			  evalu+=" Costos Agregados de Producción                 $"+costoAgregadosdeProduccion+"\n";
+			  evalu+=" Inventario Inicial de Productos en Proceso     $"+invInicialPP+"\n";
+			  evalu+=" Inventario Final de Productos en Proceso       $-"+invFinalPP+"\n";
+			  evalu+=" _______________________________________________________________"+"\n";
+			  evalu+=" Costos Total de Producto Terminado             $"+costoTotalPT+"\n";
+			  evalu+=" Inventario Inicial de Producto Terminado       $"+invInicialPT+"\n";
+			  evalu+=" Inventario Final de Producto Terminado         $-"+invFinalPT+"\n";
+			  evalu+=" _______________________________________________________________"+"\n";
+			  evalu+=" Costos de Venta                                $"+costoDeVenta+"\n";
+
+		  } 
+		  pw.println(evalu);
+		  pw.close();
+	  }
 	
 
 }

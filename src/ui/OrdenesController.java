@@ -1,7 +1,8 @@
 package ui;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
+
 
 import customeExceptions.NegativeNumberException;
 import customeExceptions.NoDataException;
@@ -166,7 +167,7 @@ public class OrdenesController {
     private Label modLabel;
     
     private EstadoCostos ec;
-    private List<Orden> ordenes=new ArrayList<Orden>();
+    private ArrayList<Orden> ordenes=new ArrayList<Orden>();
 
     @FXML
     void initialize() {
@@ -190,7 +191,7 @@ public class OrdenesController {
     	periodoOrden.setVisible(false);
     	buttonNewOrder.setVisible(false);
     	baseKnd.setVisible(false);
-
+    	ec=new EstadoCostos();
     }
     
     @FXML
@@ -198,6 +199,8 @@ public class OrdenesController {
     	try {
         	String nameCompany=companyName.getText();
         	String termStateCost=term.getText();
+        	ec.setNombreEmpresa(nameCompany);
+        	ec.setPeriodoRealizacion(termStateCost);
         	if(nameCompany.isEmpty()) {
         		throw new NoDataException(nameCompany);
         	}
@@ -234,7 +237,23 @@ public class OrdenesController {
         
     @FXML
     void calculateCostState(ActionEvent event) {
-
+    	ec.setOrdenes(ordenes);
+    	try {
+			ec.exportCostState("data/EstadoDeCostos.txt");
+			Alert score = new Alert(AlertType.CONFIRMATION);
+		    score.setTitle("Contabilidad y costos");
+		    score.initStyle(StageStyle.DECORATED);
+		    score.setContentText("Su estado de costos ha sido creado con exito, por favor reviselo en la carpeta data");
+		    score.show();
+		    
+			
+		} catch (FileNotFoundException e) {
+			Alert score = new Alert(AlertType.ERROR);
+		    score.setTitle("Contabilidad y costos");
+		    score.initStyle(StageStyle.DECORATED);
+		    score.setContentText("Hubo un  error al generar el estaado de costos");
+		    score.show();
+		}
     }
 
     @FXML

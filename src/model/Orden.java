@@ -67,6 +67,10 @@ public class Orden {
 		this.mod = mod;
 	}
 	
+	public double totalCosto() {
+	
+		return mod+cif+md;
+	}
 	
 	
 	

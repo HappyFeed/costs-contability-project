@@ -8,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Main extends Application{
+	
+	public Stage stage;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -18,12 +20,12 @@ public class Main extends Application{
 		Parent root = FXMLLoader.load(getClass().getResource("ordenes.fxml"));
 		
 		Scene scene = new Scene(root);
-		stage.setTitle("Proyecto de Contabilidad");
-		stage.getIcons().add(new Image("file:icon.png"));
+		this.stage.setTitle("Proyecto de Contabilidad");
+		this.stage.getIcons().add(new Image("file:icon.png"));
 
-		stage.getIcons().add(new Image("/ui/icon.jpg"));
-		stage.setScene(scene);
-		stage.show();
+		this.stage.getIcons().add(new Image("/ui/icon.jpg"));
+		this.stage.setScene(scene);
+		this.stage.show();
 	}
 }
 
