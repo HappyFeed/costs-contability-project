@@ -166,8 +166,24 @@ public class OrdenesController {
     @FXML
     private Label modLabel;
     
+    @FXML
+    private Button buttonEliminar;
+
+    @FXML
+    private TextField nameOrdenToDelete;
+
+    @FXML
+    private Label nombreLabel1;
+
+    @FXML
+    private Label cifRealesLabel1;
+
+    @FXML
+    private TextField cifReales1;
+    
     private EstadoCostos ec;
     private ArrayList<Orden> ordenes=new ArrayList<Orden>();
+    private double cifReales=0;
 
     @FXML
     void initialize() {
@@ -192,6 +208,43 @@ public class OrdenesController {
     	buttonNewOrder.setVisible(false);
     	baseKnd.setVisible(false);
     	ec=new EstadoCostos();
+    	buttonEliminar.setVisible(false);
+    	nombreLabel1.setVisible(false);
+    	nameOrdenToDelete.setVisible(false);
+    }
+    
+    @FXML
+    void deleteOrden(ActionEvent event) {
+    
+    	try {
+    	String nameOrden= nameOrdenToDelete.getText();
+    	if (nameOrden.isEmpty()) {
+			throw new NoDataException(nameOrden);
+		}
+    		
+    	if (ordenes.isEmpty()) {
+    		
+    	}else {
+			for (int i = 0; i < ordenes.size(); i++) {
+				if (ordenes.get(i).getNombre().equals(nameOrden)) {
+					ordenes.remove(i);
+					if (ordenes.isEmpty()) {
+						buttonEliminar.setVisible(false);
+				    	nombreLabel1.setVisible(false);
+				    	nameOrdenToDelete.setVisible(false);
+					}
+				}
+			}
+		}
+    	}catch (NoDataException nd) {
+    		Alert score = new Alert(AlertType.ERROR);
+		    score.setTitle("Contabilidad y costos");
+		    score.initStyle(StageStyle.DECORATED);
+		    score.setContentText(nd.getMessage());
+		    score.show();
+			
+		}
+
     }
     
     @FXML
@@ -199,14 +252,17 @@ public class OrdenesController {
     	try {
         	String nameCompany=companyName.getText();
         	String termStateCost=term.getText();
-        	ec.setNombreEmpresa(nameCompany);
+        	
         	ec.setPeriodoRealizacion(termStateCost);
+        	
         	if(nameCompany.isEmpty()) {
         		throw new NoDataException(nameCompany);
         	}
         	if(termStateCost.isEmpty()) {
         		throw new NoDataException(nameCompany);
         	}
+        	ec.setCifReales(cifReales);
+        	ec.setNombreEmpresa(nameCompany);
         	term.setEditable(false);
         	companyName.setEditable(false);
         	String n=tasaCIFComboBox.getValue();
@@ -298,6 +354,9 @@ public class OrdenesController {
         	
         	Orden n= new Orden(nameOrden.getText(), periodoOrden.getValue(), estadoOrden.getValue(),Double.parseDouble( mdOrden.getText()), Double.parseDouble(cifAOrden.getText())*Double.parseDouble(tasaCif.getText()),Double.parseDouble(modOrden.getText()));
         	ordenes.add(n);
+        	buttonEliminar.setVisible(true);
+        	nombreLabel1.setVisible(true);
+        	nameOrdenToDelete.setVisible(true);
     	}catch(NoDataException nde) {
     		Alert score = new Alert(AlertType.ERROR);
 		    score.setTitle("Contabilidad y costos");
@@ -433,6 +492,7 @@ public class OrdenesController {
 
         		double cifPre=Double.parseDouble(cifPresupuestados.getText());
             	double baseCif1=Double.parseDouble(baseCif.getText());
+            	cifReales=Double.parseDouble(cifReales1.getText());
             	if(cifPre<0) {
             		throw new NegativeNumberException(cifPre);
             	}else if(cifPresupuestados.getText().isEmpty()) {
@@ -443,6 +503,12 @@ public class OrdenesController {
             	}else if(baseCif.getText().isEmpty()) {
             		throw new NoDataException(baseCif.getText());
             	}
+            	if(cifReales==0) {
+            		throw new NegativeNumberException(baseCif1);
+            	}else if(cifReales1.getText().isEmpty()) {
+            		throw new NoDataException(baseCif.getText());
+            	}
+            	
             	double tasa=redondearDecimales((cifPre/baseCif1),2); 
             	tasaCif.setText(tasa+"");
             	buttonContinuar.setDisable(true);

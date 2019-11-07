@@ -9,6 +9,8 @@ public class EstadoCostos {
 	
 	private String nombreEmpresa;
 	private String periodoRealizacion;
+	private String texto;
+	private double variacion;
 	private double invInicialMD;
 	private double compras;
 	private double invFinalMD;
@@ -22,6 +24,7 @@ public class EstadoCostos {
 	private double invInicialPT;
 	private double invFinalPT;
 	private double costoDeVenta;
+	private double cifReales;
 	
 	private ArrayList<Orden> ordenes;
 	
@@ -144,6 +147,14 @@ public class EstadoCostos {
 		this.periodoRealizacion = periodoRealizacion;
 	}
 
+	public double getCifReales() {
+		return cifReales;
+	}
+
+	public void setCifReales(double cifReales) {
+		this.cifReales = cifReales;
+	}
+
 	public void exportCostState(String path) throws FileNotFoundException {
 		  PrintWriter pw= new PrintWriter(new File(path));
 		  String evalu="";
@@ -170,6 +181,14 @@ public class EstadoCostos {
 					invFinalPT+=ordenes.get(i).totalCosto();
 				  }
 				  
+				  variacion=cifReales-cif;
+				  if(variacion<0) {
+					texto="Sub";
+				  }else if (variacion>0) {
+					texto="Sobre";
+				  }else {
+					texto="es igual";
+				  }
 			
 				  
 				  
@@ -182,6 +201,7 @@ public class EstadoCostos {
 			  
 			  evalu+="----------------------------------------------------------------------------" + "\n";
 			  evalu+=" "+nombreEmpresa + "\n";
+			  evalu+=" Estado de Costos"+ "\n";
 			  evalu+=" "+periodoRealizacion +"\n";
 			  evalu+="----------------------------------------------------------------------------" + "\n"+ "\n";
 			  evalu+=" Inventario Inicial de Material Directo         $"+invInicialMD+"\n";
@@ -200,7 +220,8 @@ public class EstadoCostos {
 			  evalu+=" Inventario Inicial de Producto Terminado       $"+invInicialPT+"\n";
 			  evalu+=" Inventario Final de Producto Terminado         $-"+invFinalPT+"\n";
 			  evalu+=" _______________________________________________________________"+"\n";
-			  evalu+=" Costos de Venta                                $"+costoDeVenta+"\n";
+			  evalu+=" Costos de Venta                                $"+costoDeVenta+"\n"+"\n"+"\n";
+			  evalu+=" Su variación con respecto a los Costos Indirectos de Fabricación Reales es: "+variacion+"Y esta es"+texto+"\n";
 
 		  } 
 		  pw.println(evalu);

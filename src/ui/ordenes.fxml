@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="751.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.OrdenesController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="751.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.OrdenesController">
    <children>
       <Label fx:id="baseKnd" layoutX="445.0" layoutY="59.0" prefHeight="17.0" prefWidth="99.0" />
       <ComboBox fx:id="tasaCIFComboBox" layoutX="12.0" layoutY="198.0" onAction="#calculateCifTasa" prefHeight="25.0" prefWidth="125.0" promptText="Base segun:">
@@ -36,10 +36,10 @@
       <Label layoutX="10.0" text="Datos" />
       <Separator layoutX="44.0" layoutY="7.0" prefHeight="4.0" prefWidth="99.0" />
       <Separator layoutX="53.0" layoutY="175.0" prefHeight="4.0" prefWidth="91.0" />
-      <Label fx:id="cifPresupuestadasLabel" layoutX="14.0" layoutY="246.0" prefHeight="17.0" prefWidth="114.0" text="CIF presupuestados" />
-      <TextField fx:id="cifPresupuestados" layoutX="14.0" layoutY="275.0" prefHeight="25.0" prefWidth="114.0" />
-      <TextField fx:id="baseCif" layoutX="14.0" layoutY="342.0" prefHeight="25.0" prefWidth="114.0" />
-      <Label fx:id="baseLabel" layoutX="18.0" layoutY="317.0" prefHeight="17.0" prefWidth="114.0" text="Base" />
+      <Label fx:id="cifPresupuestadasLabel" layoutX="14.0" layoutY="243.0" prefHeight="17.0" prefWidth="114.0" text="CIF presupuestados" />
+      <TextField fx:id="cifPresupuestados" layoutX="11.0" layoutY="270.0" prefHeight="25.0" prefWidth="114.0" />
+      <TextField fx:id="baseCif" layoutX="11.0" layoutY="323.0" prefHeight="25.0" prefWidth="114.0" />
+      <Label fx:id="baseLabel" layoutX="11.0" layoutY="298.0" prefHeight="17.0" prefWidth="114.0" text="Base" />
       <Separator layoutX="146.0" layoutY="90.0" prefHeight="4.0" prefWidth="602.0" />
       <Label layoutX="152.0" prefHeight="17.0" prefWidth="63.0" text="Ordenes" />
       <Separator layoutX="203.0" layoutY="8.0" prefHeight="4.0" prefWidth="547.0" />
@@ -133,9 +133,14 @@
       <Label fx:id="nPaginaA" layoutX="425.0" layoutY="485.0" text="1" />
       <Button fx:id="paginaSgtA" layoutX="443.0" layoutY="481.0" mnemonicParsing="false" onAction="#nextPageA" text="--&gt;" />
       <Button fx:id="buttonTerminar" layoutX="623.0" layoutY="517.0" mnemonicParsing="false" onAction="#calculateCostState" prefHeight="34.0" prefWidth="114.0" text="Terminar" />
-      <Button fx:id="buttonNewOrder" layoutX="680.0" layoutY="34.0" mnemonicParsing="false" onAction="#makeOrder" text="Done" />
+      <Button fx:id="buttonNewOrder" layoutX="680.0" layoutY="34.0" mnemonicParsing="false" onAction="#makeOrder" text="Listo" />
       <Button fx:id="buttonContinuar" layoutX="12.0" layoutY="505.0" mnemonicParsing="false" onAction="#preData" prefHeight="25.0" prefWidth="118.0" text="Continuar" />
-      <TextField fx:id="tasaCif" layoutX="14.0" layoutY="419.0" prefHeight="25.0" prefWidth="114.0" />
-      <Label layoutX="18.0" layoutY="403.0" prefHeight="17.0" prefWidth="99.0" text="Tasa " />
+      <TextField fx:id="tasaCif" layoutX="11.0" layoutY="384.0" prefHeight="25.0" prefWidth="114.0" />
+      <Label layoutX="10.0" layoutY="359.0" prefHeight="17.0" prefWidth="99.0" text="Tasa " />
+      <Button fx:id="buttonEliminar" layoutX="371.0" layoutY="522.0" mnemonicParsing="false" onAction="#deleteOrden" prefHeight="25.0" prefWidth="63.0" text="Eliminar" />
+      <TextField fx:id="nameOrdenToDelete" layoutX="210.0" layoutY="522.0" />
+      <Label fx:id="nombreLabel1" layoutX="157.0" layoutY="526.0" prefHeight="17.0" prefWidth="53.0" text="Nombre:" />
+      <Label fx:id="cifRealesLabel1" layoutX="11.0" layoutY="419.0" prefHeight="17.0" prefWidth="114.0" text="CIF reales" />
+      <TextField fx:id="cifReales1" layoutX="10.0" layoutY="446.0" prefHeight="25.0" prefWidth="114.0" />
    </children>
 </Pane>
