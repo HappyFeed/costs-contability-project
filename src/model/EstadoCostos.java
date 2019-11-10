@@ -175,9 +175,9 @@ public class EstadoCostos {
 					invFinalPP+=ordenes.get(i).totalCosto();
 				  }
 				  
-				  if (ordenes.get(i).getPeriodo().equals("ANTERIOR")&&ordenes.get(i).getEstado().equals("TERMINADA")) {
+				  if (ordenes.get(i).getPeriodo().equals("ANTERIOR")&&ordenes.get(i).getEstado().equals("TERMINADO")) {
 					invInicialPT+=ordenes.get(i).totalCosto();
-				  }else if (ordenes.get(i).getPeriodo().equals("ACTUAL")&&ordenes.get(i).getEstado().equals("TERMINADA")) {
+				  }else if (ordenes.get(i).getPeriodo().equals("ACTUAL")&&ordenes.get(i).getEstado().equals("TERMINADO")) {
 					invFinalPT+=ordenes.get(i).totalCosto();
 				  }
 				  
