@@ -1,0 +1,27 @@
+----------------------------------------------------------------------------
+ a
+ Estado de Costos
+ a
+----------------------------------------------------------------------------
+
+ Inventario Inicial de Material Directo         $0.0
+ Compras de Material Directo                    $0.0
+ Inventario Final de Material Directo           $-0.0
+ ______________________________________________________________
+ Consumo de Material Directo                    $0.0
+ Mano de Obra Directa                           $0.0
+ Costos Indirectos de Fabricación               $0.0
+ _______________________________________________________________
+ Costos Agregados de Producción                 $0.0
+ Inventario Inicial de Productos en Proceso     $0.0
+ Inventario Final de Productos en Proceso       $-0.0
+ _______________________________________________________________
+ Costos Total de Producto Terminado             $0.0
+ Inventario Inicial de Producto Terminado       $7.0
+ Inventario Final de Producto Terminado         $-0.0
+ _______________________________________________________________
+ Costos de Venta                                $7.0
+
+
+ Su variación con respecto a los Costos Indirectos de Fabricación Reales es: 0.0 y esta eses igual
+

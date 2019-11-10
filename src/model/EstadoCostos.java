@@ -175,17 +175,17 @@ public class EstadoCostos {
 					invFinalPP+=ordenes.get(i).totalCosto();
 				  }
 				  
-				  if (ordenes.get(i).getPeriodo().equals("ANTERIOR")&&ordenes.get(i).getEstado().equals("TERMINADA")) {
+				  if (ordenes.get(i).getPeriodo().equals("ANTERIOR")&&ordenes.get(i).getEstado().equals("TERMINADO")) {
 					invInicialPT+=ordenes.get(i).totalCosto();
-				  }else if (ordenes.get(i).getPeriodo().equals("ACTUAL")&&ordenes.get(i).getEstado().equals("TERMINADA")) {
+				  }else if (ordenes.get(i).getPeriodo().equals("ACTUAL")&&ordenes.get(i).getEstado().equals("TERMINADO")) {
 					invFinalPT+=ordenes.get(i).totalCosto();
 				  }
 				  
 				  variacion=cifReales-cif;
 				  if(variacion<0) {
-					texto="Sub";
+					texto="Subaplicados";
 				  }else if (variacion>0) {
-					texto="Sobre";
+					texto="Sobreaplicados";
 				  }else {
 					texto="es igual";
 				  }
@@ -221,7 +221,7 @@ public class EstadoCostos {
 			  evalu+=" Inventario Final de Producto Terminado         $-"+invFinalPT+"\n";
 			  evalu+=" _______________________________________________________________"+"\n";
 			  evalu+=" Costos de Venta                                $"+costoDeVenta+"\n"+"\n"+"\n";
-			  evalu+=" Su variación con respecto a los Costos Indirectos de Fabricación Reales es: "+variacion+"Y esta es"+texto+"\n";
+			  evalu+=" Su variación con respecto a los Costos Indirectos de Fabricación Reales es: "+variacion+" y esta es"+texto+"\n";
 
 		  } 
 		  pw.println(evalu);

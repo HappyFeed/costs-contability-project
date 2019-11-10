@@ -338,21 +338,29 @@ public class OrdenesController {
         	String nameOrder=nameOrden.getText();
         	if(nameOrder.isEmpty()) {
         		throw new NoDataException(nameOrder);
+        	}else if(modOrden.getText().isEmpty()) {
+        		throw new NoDataException(modOrden.getText());
+        	}else if(cifAOrden.getText().isEmpty()) {
+        		throw new NoDataException(modOrden.getText());
+        	}else if(mdOrden.getText().isEmpty()) {
+        		throw new NoDataException(mdOrden.getText());
         	}
+        	
         	double md= Double.parseDouble(mdOrden.getText());
         	if(md<0) {
         		throw new NegativeNumberException(md);
-        	}else if(mdOrden.getText().isEmpty()) {
-        		throw new NoDataException(mdOrden.getText());
         	}
         	double mod=Double.parseDouble(modOrden.getText());
         	if(mod<0) {
         		throw new NegativeNumberException(md);
-        	}else if(modOrden.getText().isEmpty()) {
-        		throw new NoDataException(modOrden.getText());
+        	}
+        	double cif=Double.parseDouble(cifAOrden.getText());
+        	if(cif<0) {
+        		throw new NegativeNumberException(md);
         	}
         	
         	Orden n= new Orden(nameOrden.getText(), periodoOrden.getValue(), estadoOrden.getValue(),Double.parseDouble( mdOrden.getText()), Double.parseDouble(cifAOrden.getText())*Double.parseDouble(tasaCif.getText()),Double.parseDouble(modOrden.getText()));
+        	System.out.println(n.getEstado() +" "+n.getPeriodo());
         	ordenes.add(n);
         	buttonEliminar.setVisible(true);
         	nombreLabel1.setVisible(true);
@@ -371,9 +379,21 @@ public class OrdenesController {
 		    score.setContentText(nne.getMessage());
 		    score.show();
 		    mdOrden.setText("");
+    	}catch(NumberFormatException nfe) {
+			Alert score = new Alert(AlertType.ERROR);
+		    score.setTitle("Contabilidad y costos");
+		    score.initStyle(StageStyle.DECORATED);
+		    score.setContentText(nfe.getMessage());
+		    score.show();
+		    mdOrden.setText("");
     	}
     	
-    
+    	finally {
+    		nameOrden.setText("");
+    		cifAOrden.setText("");
+    		mdOrden.setText("");
+    		modOrden.setText("");
+    	}
     	
     }
 
@@ -402,7 +422,7 @@ public class OrdenesController {
     		}
     	}
     	int newPage= Integer.parseInt(nPaginaA.getText())+1;
-        if(newPage<(n.size()/4)+2) {
+        if(newPage<=(n.size()/4)+2) {
         	nPaginaA.setText(newPage+"");
         	clearDataA();
         	showTableA();
@@ -413,12 +433,13 @@ public class OrdenesController {
     void nextPageP(ActionEvent event) {
     	ArrayList<Orden> n= new ArrayList<Orden>();
     	for(int i=0;i<ordenes.size();i++) {
-    		if(ordenes.get(i).getPeriodo().equals("ACTUAL")) {
+    		if(ordenes.get(i).getPeriodo().equals("ANTERIOR")) {
     			n.add(ordenes.get(i));
     		}
     	}
+    	
     	int newPage= Integer.parseInt(nPaginaP.getText())+1;
-        if(newPage<(n.size()/4)+2) {
+        if(newPage<=((n.size()/4)+2)) {
         	nPaginaP.setText(newPage+"");
         	clearDataP();
         	showTableP();
@@ -433,7 +454,7 @@ public class OrdenesController {
     		}
     	}
     	int pages=(n.size()/4);
-    	if(n.size()%4>0) {
+    	if(n.size()%4!=0) {
     		pages+=1;
     	}
     	for(int j=0;j<pages;j++){
@@ -463,7 +484,7 @@ public class OrdenesController {
     		}
     	}
     	int pages=(n.size()/4);
-    	if(n.size()%4>0) {
+    	if(n.size()%4!=0) {
     		pages+=1;
     	}
     	for(int j=0;j<pages;j++){
