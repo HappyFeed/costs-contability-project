@@ -52,10 +52,16 @@ public class OrdenesController {
     private TextField tasaCif;
     
     @FXML
+    private TextField nuevaEntrada;
+    
+    @FXML
     private ComboBox<String> periodoOrden;
 
     @FXML
     private ComboBox<String> estadoOrden;
+    
+    @FXML
+    private ComboBox<String> comboEliminar;
 
     @FXML
     private VBox estadoVboxP;
@@ -165,9 +171,6 @@ public class OrdenesController {
 
     @FXML
     private Label modLabel;
-    
-    @FXML
-    private Button buttonEliminar;
 
     @FXML
     private TextField nameOrdenToDelete;
@@ -194,6 +197,10 @@ public class OrdenesController {
     	estadoOrden.getItems().add("TERMINADO");
     	estadoOrden.getItems().add("PROCESO");
     	estadoOrden.getItems().add("VENDIDA");
+    	comboEliminar.getItems().add("MD");
+    	comboEliminar.getItems().add("MOD");
+    	comboEliminar.getItems().add("BASE");
+    	comboEliminar.getItems().add("Eliminar");   	
     	tasaCif.setEditable(false);
     	nameOrden.setVisible(false);
     	nombreLabel.setVisible(false);
@@ -208,7 +215,8 @@ public class OrdenesController {
     	buttonNewOrder.setVisible(false);
     	baseKnd.setVisible(false);
     	ec=new EstadoCostos();
-    	buttonEliminar.setVisible(false);
+    	comboEliminar.setVisible(false);
+    	nuevaEntrada.setVisible(false);
     	nombreLabel1.setVisible(false);
     	nameOrdenToDelete.setVisible(false);
     }
@@ -218,24 +226,24 @@ public class OrdenesController {
     
     	try {
     	String nameOrden= nameOrdenToDelete.getText();
-    	if (nameOrden.isEmpty()) {
+    	if (nameOrden.isEmpty()||nuevaEntrada.getText().isEmpty()) {
 			throw new NoDataException(nameOrden);
-		}
-    		
-    	if (ordenes.isEmpty()) {
-    		
-    	}else {
-			for (int i = 0; i < ordenes.size(); i++) {
-				if (ordenes.get(i).getNombre().equals(nameOrden)) {
-					ordenes.remove(i);
-					if (ordenes.isEmpty()) {
-						buttonEliminar.setVisible(false);
-				    	nombreLabel1.setVisible(false);
-				    	nameOrdenToDelete.setVisible(false);
-					}
+		} 
+    	if(Double.parseDouble(nuevaEntrada.getText())<0) {
+    		throw new NegativeNumberException(Double.parseDouble(nuevaEntrada.getText()));
+    	}
+		for (int i = 0; i < ordenes.size(); i++) {
+			if (ordenes.get(i).getNombre().equals(nameOrden)) {	
+				if(comboEliminar.getValue().equals("MD")) {
+					ordenes.get(i).setMd(Double.parseDouble(nuevaEntrada.getText()));
+				}else if(comboEliminar.getValue().equals("MOD")) {
+					ordenes.get(i).setMod(Double.parseDouble(nuevaEntrada.getText()));
+				}else if(comboEliminar.getValue().equals("CIF")) {
+					ordenes.get(i).setCif(Double.parseDouble(nuevaEntrada.getText()));
 				}
 			}
 		}
+		
     	}catch (NoDataException nd) {
     		Alert score = new Alert(AlertType.ERROR);
 		    score.setTitle("Contabilidad y costos");
@@ -243,8 +251,54 @@ public class OrdenesController {
 		    score.setContentText(nd.getMessage());
 		    score.show();
 			
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (NegativeNumberException e) {
+    		Alert score = new Alert(AlertType.ERROR);
+		    score.setTitle("Contabilidad y costos");
+		    score.initStyle(StageStyle.DECORATED);
+		    score.setContentText(e.getMessage());
+		    score.show();
 		}
 
+    }
+    
+    @FXML
+    void editOrDelated(ActionEvent event) {
+    	try {
+        	String nameOrden= nameOrdenToDelete.getText();
+        	if (nameOrden.isEmpty()) {
+    			throw new NoDataException(nameOrden);
+    		}
+        		    	
+    		for (int i = 0; i < ordenes.size(); i++) {
+    			if (ordenes.get(i).getNombre().equals(nameOrden)) {	
+    				if(comboEliminar.getValue().equals("MD")) {
+    					nuevaEntrada.setVisible(true);
+    				}else if(comboEliminar.getValue().equals("MOD")) {
+    					nuevaEntrada.setVisible(true);
+    				}else if(comboEliminar.getValue().equals("BASE")) {
+    					nuevaEntrada.setVisible(true);
+    				}else if(comboEliminar.getValue().equals("Eliminar")) {
+    					ordenes.remove(i);
+    				}			
+    				if (ordenes.isEmpty()) {
+    					comboEliminar.setVisible(false);
+    				    nombreLabel1.setVisible(false);
+    				    nameOrdenToDelete.setVisible(false);
+    				    nuevaEntrada.setVisible(false);
+    				}
+    			}
+    		}
+    		
+        	}catch (NoDataException nd) {
+        		Alert score = new Alert(AlertType.ERROR);
+    		    score.setTitle("Contabilidad y costos");
+    		    score.initStyle(StageStyle.DECORATED);
+    		    score.setContentText(nd.getMessage());
+    		    score.show();
+    			
+    		}
     }
     
     @FXML
@@ -362,7 +416,7 @@ public class OrdenesController {
         	Orden n= new Orden(nameOrden.getText(), periodoOrden.getValue(), estadoOrden.getValue(),Double.parseDouble( mdOrden.getText()), Double.parseDouble(cifAOrden.getText())*Double.parseDouble(tasaCif.getText()),Double.parseDouble(modOrden.getText()));
         	System.out.println(n.getEstado() +" "+n.getPeriodo());
         	ordenes.add(n);
-        	buttonEliminar.setVisible(true);
+        	comboEliminar.setVisible(true);
         	nombreLabel1.setVisible(true);
         	nameOrdenToDelete.setVisible(true);
     	}catch(NoDataException nde) {
@@ -439,10 +493,15 @@ public class OrdenesController {
     	}
     	
     	int newPage= Integer.parseInt(nPaginaP.getText())+1;
+
         if(newPage<=((n.size()/4)+2)) {
+
+        if(newPage<=(n.size()/4)+2) {
+
         	nPaginaP.setText(newPage+"");
         	clearDataP();
         	showTableP();
+        }
         }
     }
 

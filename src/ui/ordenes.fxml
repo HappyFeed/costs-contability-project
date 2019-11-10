@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="751.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.OrdenesController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="751.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.OrdenesController">
    <children>
       <Label fx:id="baseKnd" layoutX="445.0" layoutY="59.0" prefHeight="17.0" prefWidth="99.0" />
       <ComboBox fx:id="tasaCIFComboBox" layoutX="12.0" layoutY="198.0" onAction="#calculateCifTasa" prefHeight="25.0" prefWidth="125.0" promptText="Base segun:">
@@ -137,10 +137,11 @@
       <Button fx:id="buttonContinuar" layoutX="12.0" layoutY="505.0" mnemonicParsing="false" onAction="#preData" prefHeight="25.0" prefWidth="118.0" text="Continuar" />
       <TextField fx:id="tasaCif" layoutX="11.0" layoutY="384.0" prefHeight="25.0" prefWidth="114.0" />
       <Label layoutX="10.0" layoutY="359.0" prefHeight="17.0" prefWidth="99.0" text="Tasa " />
-      <Button fx:id="buttonEliminar" layoutX="371.0" layoutY="522.0" mnemonicParsing="false" onAction="#deleteOrden" prefHeight="25.0" prefWidth="63.0" text="Eliminar" />
       <TextField fx:id="nameOrdenToDelete" layoutX="210.0" layoutY="522.0" />
       <Label fx:id="nombreLabel1" layoutX="157.0" layoutY="526.0" prefHeight="17.0" prefWidth="53.0" text="Nombre:" />
       <Label fx:id="cifRealesLabel1" layoutX="11.0" layoutY="419.0" prefHeight="17.0" prefWidth="114.0" text="CIF reales" />
       <TextField fx:id="cifReales1" layoutX="10.0" layoutY="446.0" prefHeight="25.0" prefWidth="114.0" />
+      <ComboBox fx:id="comboEliminar" layoutX="370.0" layoutY="522.0" onAction="#editOrDelated" prefHeight="25.0" prefWidth="118.0" promptText="Escoger:" />
+      <TextField fx:id="nuevaEntrada" layoutX="495.0" layoutY="522.0" onAction="#deleteOrden" prefHeight="25.0" prefWidth="118.0" />
    </children>
 </Pane>
